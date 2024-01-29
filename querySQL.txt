@@ -1,0 +1,143 @@
+drop DATABASE if EXISTS erd;
+CREATE DATABASE erd;
+USE erd;
+
+-- create table nguoi_dung
+CREATE TABLE nguoi_dung(
+	nguoi_dung_id INT PRIMARY KEY auto_increment,
+	email VARCHAR(255),
+	mat_khau VARCHAR(255),
+	ho_ten VARCHAR(255),
+	tuoi INT,
+	anh_dai_dien VARCHAR(255)
+);
+
+-- create table hinh_anh
+CREATE TABLE hinh_anh(
+	hinh_id INT PRIMARY KEY auto_increment,
+	ten_hinh VARCHAR(255),
+	duong_dan VARCHAR(255),
+	mo_ta VARCHAR(255),
+	nguoi_dung_id INT,
+	FOREIGN KEY(nguoi_dung_id) REFERENCES nguoi_dung(nguoi_dung_id)
+	ON DELETE CASCADE
+);
+
+-- create binh_luan
+CREATE TABLE binh_luan(
+	binh_luan_id INT PRIMARY KEY auto_increment,
+	nguoi_dung_id INT,
+	hinh_id INT,
+	ngay_binh_luan DATE,
+	noi_dung VARCHAR(255),
+	FOREIGN KEY(nguoi_dung_id) REFERENCES nguoi_dung(nguoi_dung_id)
+	ON DELETE CASCADE,
+	FOREIGN KEY(hinh_id) REFERENCES hinh_anh(hinh_id)
+	ON DELETE CASCADE
+);
+
+
+-- create luu_anh
+CREATE TABLE luu_anh(
+	nguoi_dung_id INT,
+	hinh_id INT PRIMARY KEY,
+	ngay_luu DATE,
+	FOREIGN KEY(nguoi_dung_id) REFERENCES nguoi_dung(nguoi_dung_id)
+	ON DELETE CASCADE,
+	FOREIGN KEY(hinh_id) REFERENCES hinh_anh(hinh_id)
+	ON DELETE CASCADE
+);
+
+
+-- Thêm dữ liệu mẫu cho bảng nguoi_dung
+INSERT INTO nguoi_dung (email, mat_khau, ho_ten, tuoi, anh_dai_dien) VALUES
+    ('john.doe@example.com', 'hashed_password_1', 'John Doe', 25, 'avatar1.jpg'),
+    ('jane.smith@example.com', 'hashed_password_2', 'Jane Smith', 30, 'avatar2.jpg'),
+    ('bob.jones@example.com', 'hashed_password_3', 'Bob Jones', 22, 'avatar3.jpg'),
+    ('alice.green@example.com', 'hashed_password_4', 'Alice Green', 28, 'avatar4.jpg'),
+    ('david.white@example.com', 'hashed_password_5', 'David White', 35, 'avatar5.jpg'),
+    ('emily.brown@example.com', 'hashed_password_6', 'Emily Brown', 27, 'avatar6.jpg'),
+    ('michael.black@example.com', 'hashed_password_7', 'Michael Black', 32, 'avatar7.jpg'),
+    ('olivia.gray@example.com', 'hashed_password_8', 'Olivia Gray', 29, 'avatar8.jpg'),
+    ('ryan.taylor@example.com', 'hashed_password_9', 'Ryan Taylor', 26, 'avatar9.jpg'),
+    ('sophia.wilson@example.com', 'hashed_password_10', 'Sophia Wilson', 31, 'avatar10.jpg'),
+    ('liam.moore@example.com', 'hashed_password_11', 'Liam Moore', 24, 'avatar11.jpg'),
+    ('ava.anderson@example.com', 'hashed_password_12', 'Ava Anderson', 33, 'avatar12.jpg'),
+    ('noah.miller@example.com', 'hashed_password_13', 'Noah Miller', 23, 'avatar13.jpg'),
+    ('emma.hill@example.com', 'hashed_password_14', 'Emma Hill', 28, 'avatar14.jpg'),
+    ('ethan.ross@example.com', 'hashed_password_15', 'Ethan Ross', 29, 'avatar15.jpg'),
+    ('chloe.ward@example.com', 'hashed_password_16', 'Chloe Ward', 26, 'avatar16.jpg'),
+    ('logan.baker@example.com', 'hashed_password_17', 'Logan Baker', 30, 'avatar17.jpg'),
+    ('mia.tucker@example.com', 'hashed_password_18', 'Mia Tucker', 27, 'avatar18.jpg'),
+    ('owen.fisher@example.com', 'hashed_password_19', 'Owen Fisher', 25, 'avatar19.jpg'),
+    ('zoey.roberts@example.com', 'hashed_password_20', 'Zoey Roberts', 22, 'avatar20.jpg');
+
+
+-- Thêm dữ liệu mẫu cho bảng hinh_anh
+INSERT INTO hinh_anh (ten_hinh, duong_dan, mo_ta, nguoi_dung_id) VALUES
+    ('Hình 1', 'path/to/image1.jpg', 'Mô tả cho hình 1', 1),
+    ('Hình 2', 'path/to/image2.jpg', 'Mô tả cho hình 2', 2),
+    ('Hình 3', 'path/to/image3.jpg', 'Mô tả cho hình 3', 3),
+    ('Hình 4', 'path/to/image4.jpg', 'Mô tả cho hình 4', 4),
+    ('Hình 5', 'path/to/image5.jpg', 'Mô tả cho hình 5', 5),
+    ('Hình 6', 'path/to/image6.jpg', 'Mô tả cho hình 6', 6),
+    ('Hình 7', 'path/to/image7.jpg', 'Mô tả cho hình 7', 7),
+    ('Hình 8', 'path/to/image8.jpg', 'Mô tả cho hình 8', 8),
+    ('Hình 9', 'path/to/image9.jpg', 'Mô tả cho hình 9', 9),
+    ('Hình 10', 'path/to/image10.jpg', 'Mô tả cho hình 10', 10),
+    ('Hình 11', 'path/to/image11.jpg', 'Mô tả cho hình 11', 11),
+    ('Hình 12', 'path/to/image12.jpg', 'Mô tả cho hình 12', 12),
+    ('Hình 13', 'path/to/image13.jpg', 'Mô tả cho hình 13', 13),
+    ('Hình 14', 'path/to/image14.jpg', 'Mô tả cho hình 14', 14),
+    ('Hình 15', 'path/to/image15.jpg', 'Mô tả cho hình 15', 15),
+    ('Hình 16', 'path/to/image16.jpg', 'Mô tả cho hình 16', 16),
+    ('Hình 17', 'path/to/image17.jpg', 'Mô tả cho hình 17', 17),
+    ('Hình 18', 'path/to/image18.jpg', 'Mô tả cho hình 18', 18),
+    ('Hình 19', 'path/to/image19.jpg', 'Mô tả cho hình 19', 19),
+    ('Hình 20', 'path/to/image20.jpg', 'Mô tả cho hình 20', 20);
+    
+-- Thêm dữ liệu mẫu cho bảng binh_luan
+INSERT INTO binh_luan (nguoi_dung_id, hinh_id, ngay_binh_luan, noi_dung) VALUES
+    (1, 1, '2022-01-10', 'Bình luận 1 cho hình 1'),
+    (2, 2, '2022-02-15', 'Bình luận 2 cho hình 2'),
+    (3, 3, '2022-03-20', 'Bình luận 3 cho hình 3'),
+    (4, 4, '2022-04-25', 'Bình luận 4 cho hình 4'),
+    (5, 5, '2022-05-30', 'Bình luận 5 cho hình 5'),
+    (6, 6, '2022-06-05', 'Bình luận 6 cho hình 6'),
+    (7, 7, '2022-07-10', 'Bình luận 7 cho hình 7'),
+    (8, 8, '2022-08-15', 'Bình luận 8 cho hình 8'),
+    (9, 9, '2022-09-20', 'Bình luận 9 cho hình 9'),
+    (10, 10, '2022-10-25', 'Bình luận 10 cho hình 10'),
+    (11, 11, '2022-11-30', 'Bình luận 11 cho hình 11'),
+    (12, 12, '2022-12-05', 'Bình luận 12 cho hình 12'),
+    (13, 13, '2023-01-10', 'Bình luận 13 cho hình 13'),
+    (14, 14, '2023-02-15', 'Bình luận 14 cho hình 14'),
+    (15, 15, '2023-03-20', 'Bình luận 15 cho hình 15'),
+    (16, 16, '2023-04-25', 'Bình luận 16 cho hình 16'),
+    (17, 17, '2023-05-30', 'Bình luận 17 cho hình 17'),
+    (18, 18, '2023-06-05', 'Bình luận 18 cho hình 18'),
+    (19, 19, '2023-07-10', 'Bình luận 19 cho hình 19'),
+    (20, 20, '2023-08-15', 'Bình luận 20 cho hình 20');
+    
+-- Thêm dữ liệu mẫu cho bảng luu_anh
+INSERT INTO luu_anh (nguoi_dung_id, hinh_id, ngay_luu) VALUES
+    (1, 1, '2022-01-10'),
+    (2, 2, '2022-02-15'),
+    (3, 3, '2022-03-20'),
+    (4, 4, '2022-04-25'),
+    (5, 5, '2022-05-30'),
+    (6, 6, '2022-06-05'),
+    (7, 7, '2022-07-10'),
+    (8, 8, '2022-08-15'),
+    (9, 9, '2022-09-20'),
+    (10, 10, '2022-10-25'),
+    (11, 11, '2022-11-30'),
+    (12, 12, '2022-12-05'),
+    (13, 13, '2023-01-10'),
+    (14, 14, '2023-02-15'),
+    (15, 15, '2023-03-20'),
+    (16, 16, '2023-04-25'),
+    (17, 17, '2023-05-30'),
+    (18, 18, '2023-06-05'),
+    (19, 19, '2023-07-10'),
+    (20, 20, '2023-08-15');
